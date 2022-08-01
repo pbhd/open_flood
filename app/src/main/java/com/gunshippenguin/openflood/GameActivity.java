@@ -183,20 +183,28 @@ public class GameActivity extends AppCompatActivity
             initGame();
         }
     }
-
+    private void doMostDifferent() {
+    }
     private void layoutColorButtons() {
         // Add color buttons
         LinearLayout buttonLayout = (LinearLayout) findViewById(R.id.buttonLayout);
         buttonLayout.removeAllViews();
         int buttonPadding = (int) getResources().getDimension(R.dimen.color_button_padding);
-        for (int i = 0; i < getNumColors(); i++) {
+        int numColors = getNumColors();
+        for (int i = 0; i < numColors + 2; i++) {
             final int localI = i;
             ColorButton newButton = new ColorButton(this);
             newButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     v.startAnimation(AnimationUtils.loadAnimation(GameActivity.this, R.anim.button_anim));
-                    if (localI != lastColor) {
+                    if (localI == numColors) {
+                      doMostDifferent();
+                    }
+                    else if (localI == numColors + 1) {
+                      doMostDifferent();
+                    }
+                    else if (localI != lastColor) {
                         doColor(localI);
                     }
                 }
@@ -206,7 +214,7 @@ public class GameActivity extends AppCompatActivity
             newButton.setPadding(buttonPadding, buttonPadding, buttonPadding, buttonPadding);
 
             newButton.setColorBlindText(Integer.toString(i + 1));
-            newButton.setColor(paints[i].getColor());
+            newButton.setColor(paints[i % paints.length].getColor());
             buttonLayout.addView(newButton);
         }
         return;
