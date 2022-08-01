@@ -190,7 +190,7 @@ public class GameActivity extends AppCompatActivity
         LinearLayout buttonLayout = (LinearLayout) findViewById(R.id.buttonLayout);
         buttonLayout.removeAllViews();
         int buttonPadding = (int) getResources().getDimension(R.dimen.color_button_padding);
-        int numColors = getNumColors();
+        final int numColors = getNumColors();
         for (int i = 0; i < numColors + 2; i++) {
             final int localI = i;
             ColorButton newButton = new ColorButton(this);
